@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <base target="_top">
+   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+   <style>
+      .label-field {
+        width: 120px;
+      }
+      .drop-down{
+        display: block;
+        margin: 0 auto;
+      }
+      div.justified {
+        display: flex;
+        justify-content: center;
+    }
+    textarea {
+    }
+   </style>
+  </head>
+ 
+  <body>   
+   <div class="sidebar branding-below">
+   <div id="Block" style="">
+   <h1 id='taskTitle1'>Assign Task</h1>
+   <br>
+   <h3 id='taskTitle2'>Task</h3>
+   <table>
+    <tr>
+     <td>
+      <textarea id="task" rows="6" cols="30"></textarea>
+     </td>
+    </tr>
+   </table>
+   <br>
+   <h3 id='taskTitle3'>Attached To</h3>
+   <table>
+    <tr>
+     <td class="label-field">
+      <label for="row">Row</label>
+     </td>
+     <td>
+      <input type="number" id="rowNumber3" autocomplete="off">
+     </td>
+    </tr>
+   </table>
+  <h3 id='taskTitle4'>Recipient</h3>
+   <table>
+    <tr>
+     <td class="label-field">
+      <label for="recipient">Recipient</label>
+     </td>
+     <td>
+      <input type='text' id='recipient' autocomplete='off'>
+     </td>
+    </tr>
+   </table>
+   <br>
+    <div class="block">
+    <button style="width:100%" class="green" onClick="writeTask()">Write Task</button>
+    </div>
+    </div>
+    </div>
+  </body>
+  
+</html>
+
+<script type="text/javascript">
+
+  function writeTask() {    
+    var taskString = document.getElementById("task").value;
+    var rowNumber = document.getElementById("rowNumber3").value;
+    var recipientEmail = document.getElementById("recipient").value;
+    
+    var retrievedTask = google.script.run.writeTaskTable(taskString, rowNumber, recipientEmail);
+    console.log("Task written as " + retrievedTask);
+  }
+
+</script>   
+

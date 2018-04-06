@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+   <base target="_top">
+   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+   <style>
+      .label-field {
+        width: 120px;
+      }
+      .drop-down{
+        display: block;
+        margin: 0 auto;
+      }
+      div.justified {
+        display: flex;
+        justify-content: center;
+    }
+    textarea {
+      background-color: #eff0f2;
+    }
+   </style>
+   <script type="text/javascript">
+    
+   var data = <?!= JSON.stringify(dataFromServerTemplate) ?>; //Stores the data directly in the javascript code
+   function initialize() {
+     if(typeof(data) == 'undefined') {
+       data = "No note found";
+     }
+     document.getElementById("noteReadOnly").innerText = data;
+   }
+   window.onload = initialize;
+
+   function displayNote() {    
+     var rowValue = document.getElementById("rowNumber2").value;
+     var categoryValue = document.getElementById("category2").value;
+     var precisionValue = document.getElementById("precision2").value;
+    
+     var retrievedNote = google.script.run.retrieveNote(rowValue, categoryValue, precisionValue);
+     console.log(retrievedNote);
+   }
+
+  </script>   
+  </head>
+ 
+  <body>   
+   <div class="sidebar branding-below">
+   <div id="Block" style="">
+   <h1 id='Title2'>Which Note?</h1>
+   <table>
+    <tr>
+     <td class="label-field">
+      <label for="row">Row</label>
+     </td>
+     <td>
+      <input type="number" id="rowNumber2" autocomplete="off">
+     </td>
+    </tr>
+   </table>
+   <br>
+   <h3 id='noteTitle2'>Note</h3>
+   <table>
+    <tr>
+     <td class="label-field">
+      <label for="category">Category</label>
+     </td>
+     <td>
+      <select class="drop-down" name="category" id="category2">
+       <option value="1">Revenue</option>
+       <option value="2">Bookings</option>
+       <option value="3">PMO</option>
+       <option value="4">Operations</option>
+       <option value="5">RMO</option>
+      </select>
+     </td>
+    </tr>
+    <tr>
+     <td class="label-field">
+      <label for="precision">Precision</label>
+     </td>
+     <td>
+      <select class="drop-down" name="precision" id="precision2">
+       <option value="1">Normal</option>
+       <option value="2">High-level Summary</option>
+       <option value="3">Low-level Details</option>
+      </select>
+     </td>
+    </tr>
+   </table>
+    <div class="block">
+    <button style="width:100%" class="green" onClick="displayNote()">View Note</button>
+    </div>
+    <br>
+    <textarea id="noteReadOnly" rows="6" cols="30" readonly></textarea>
+    </div>
+    </div>
+  </body>
+  
+</html>
+
